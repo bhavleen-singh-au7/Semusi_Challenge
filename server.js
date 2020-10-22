@@ -1,25 +1,22 @@
-const express = require("express");
-require("dotenv").config();
+import express from "express";
+import dotenv from "dotenv";
+import connectDB from "./db/postgres.js";
+
+import userRoutes from "./routes/userRoute.js";
+
+dotenv.config();
+
+connectDB();
 
 const app = express();
-
-app.get("/", (req, res) => {
-  res.render("Working Perfect");
-});
-
-// Database
-require("./db/postgres");
-
-// My routes
-const userRoutes = require("./routes/user");
-
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// My routes -> Middlewares
-app.use(userRoutes);
+app.get("/", (req, res) => {
+  res.send("Working Perfect");
+});
 
-// Starting a server
+app.use("/api/users", userRoutes);
+
 const PORT = process.env.PORT || 2020;
 app.listen(
   PORT,
