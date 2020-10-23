@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Challenge By Company",
   "main": "server.js",
-  "type": "module",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",

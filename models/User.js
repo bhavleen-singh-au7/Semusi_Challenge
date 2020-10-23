@@ -1,9 +1,6 @@
-import sequelize from "../db/postgres";
-import { Sequelize, Model } from "sequelize";
-import bcrypt from "bcryptjs";
-// const sequelize = require("../db/postgres");
-// const { Sequelize, Model } = require("sequelize");
-// const bcrypt = require("bcryptjs");
+const sequelize = require("../db/postgres");
+const { Sequelize, Model } = require("sequelize");
+const bcrypt = require("bcryptjs");
 
 class User extends Model {}
 
@@ -51,5 +48,4 @@ User.matchPass = async function (enteredPass, hashedPass) {
   return await bcrypt.compare(enteredPass, hashedPass);
 };
 
-export default User;
-// module.exports = User;
+module.exports = User;

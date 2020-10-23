@@ -1,7 +1,6 @@
-import User from "../models/User.js";
-import generateToken from "../utils/generateToken.js";
-const generateToken = require("../utils/generateToken")
-import { validationResult } from "express-validator";
+const User = require("../models/User");
+const generateToken = require("../utils/generateToken");
+const { validationResult } = require("express-validator");
 
 exports.signup = async (req, res) => {
   const errors = validationResult(req);

@@ -1,11 +1,8 @@
-import express from "express";
-import { check } from "express-validator";
-import { signup } from "../controllers/userController.js";
-// const express = require("express");
-// const { check } = require("express-validator");
+const express = require("express");
+const { check } = require("express-validator");
 const router = express.Router();
 
-// const { signup } = require("../controllers/userController");
+const { signup } = require("../controllers/userController");
 
 const router = express.Router();
 
@@ -82,5 +79,4 @@ router.post(
 //   control.deleteUser
 // );
 
-export default router;
-// module.exports = router;
+module.exports = router;
