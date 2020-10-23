@@ -35,7 +35,10 @@ const UserSchema = {
   },
 };
 
-User.init(UserSchema, { sequelize, tableName: "tpf_tech" });
+User.init(UserSchema, {
+  sequelize,
+  tableName: "challenge",
+});
 
 // Encrypt password using bcrypt
 User.beforeSave(async function (user) {

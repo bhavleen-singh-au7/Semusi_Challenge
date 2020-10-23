@@ -4,8 +4,6 @@ const router = express.Router();
 
 const { signup } = require("../controllers/userController");
 
-const router = express.Router();
-
 // const {
 //   getUserById,
 //   isSignedIn,
@@ -34,10 +32,8 @@ router.post(
   signup
 );
 
-// router.get("/login", control.login);
-
 // router.post(
-//   "/user/signin",
+//   "/signin",
 //   [
 //     check("username", "You must provide a username")
 //       .not()
