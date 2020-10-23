@@ -1,4 +1,5 @@
-import Sequelize from "sequelize";
+// import Sequelize from "sequelize";
+const Sequelize = require("sequelize")
 
 const connectDB = new Sequelize(
   process.env.DB_USERNAME,
@@ -19,4 +20,6 @@ connectDB
 
 connectDB.sync();
 
-export default connectDB;
+// export default connectDB;
+module.exports = connectDB;
+

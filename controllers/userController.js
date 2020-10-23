@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import generateToken from "../utils/generateToken.js";
+const generateToken = require("../utils/generateToken")
 import { validationResult } from "express-validator";
 
 exports.signup = async (req, res) => {
