@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const generateToken = require("../utils/generateToken");
 const { validationResult } = require("express-validator");
+const colors = require("colors");
 
 exports.signup = async (req, res) => {
   const errors = validationResult(req);
@@ -12,9 +13,15 @@ exports.signup = async (req, res) => {
   }
 
   try {
-    const userExists = await User.findOne({ email });
+    const user = req.body;
 
-    console.log(userExists);
+    console.log(user);
+
+    const userExists = await User.findOne({
+      where: { u_email: user.u_email },
+    });
+
+    console.log(colors.green(userExists));
 
     if (userExists) {
       return res.status(400).json({
@@ -22,14 +29,13 @@ exports.signup = async (req, res) => {
       });
     }
 
-    const user = await User.create(req.body);
+    const createUser = await User.create(user);
 
-    console.log(user);
-
-    if (user) {
+    if (createUser) {
       return res.status(201).json({
-        id: user.u_id,
-        name: user.u_name,
+        id: createUser.u_id,
+        name: createUser.u_name,
+        email: createUser.u_email,
         token: generateToken(user.id),
       });
     }
@@ -98,12 +104,12 @@ exports.signup = async (req, res) => {
 //   }
 // };
 
-// exports.signout = (req, res) => {
-//   res.clearCookie("token");
-//   res.json({
-//     message: "User Signout Successfully",
-//   });
-// };
+exports.signout = (req, res) => {
+  res.clearCookie("token");
+  res.json({
+    message: "User Signout Successfully",
+  });
+};
 
 // exports.userProfile = (req, res) => {
 //   try {

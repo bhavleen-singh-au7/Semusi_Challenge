@@ -2,7 +2,10 @@ const express = require("express");
 const { check } = require("express-validator");
 const router = express.Router();
 
-const { signup } = require("../controllers/userController");
+const {
+  signup,
+  signout,
+} = require("../controllers/userController");
 
 // const {
 //   getUserById,
@@ -14,13 +17,13 @@ router.post(
   "/",
   [
     check(
-      "username",
+      "u_name",
       "You must provide a username with atleast 4 char"
     )
       .not()
       .isEmpty()
       .isLength({ min: 4 }),
-    check("email", "Email is required with proper format")
+    check("u_email", "Email is required with proper format")
       .not()
       .isEmpty()
       .isEmail(),
@@ -52,7 +55,7 @@ router.post(
 
 // router.param("userId", getUserById);
 
-// router.get("/user/signout", control.signout);
+router.get("/signout", signout);
 
 // router.get(
 //   "/user/me/:userId",
