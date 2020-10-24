@@ -4,6 +4,7 @@ const router = express.Router();
 
 const {
   signup,
+  signin,
   userProfile,
   deleteUser,
 } = require("../controllers/userController");
@@ -38,23 +39,23 @@ router.post(
   signup
 );
 
-// router.post(
-//   "/signin",
-//   [
-//     check("username", "You must provide a username")
-//       .not()
-//       .isEmpty(),
-//     check(
-//       "username",
-//       "Username should be atleast 4 char"
-//     ).isLength({ min: 4 }),
-//     check(
-//       "password",
-//       "Password should be atleast 8 char"
-//     ).isLength({ min: 8 }),
-//   ],
-//   control.signin
-// );
+router.post(
+  "/signin",
+  [
+    check(
+      "u_email",
+      "Email is required with proper format."
+    )
+      .not()
+      .isEmpty()
+      .isEmail(),
+    check(
+      "password",
+      "Password should be atleast 6 char"
+    ).isLength({ min: 6 }),
+  ],
+  signin
+);
 
 // router.param("userId", getUserById);
 

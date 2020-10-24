@@ -42,63 +42,64 @@ exports.signup = async (req, res) => {
   }
 };
 
-// exports.signin = async (req, res) => {
-//   const errors = validationResult(req);
+exports.signin = async (req, res) => {
+  const errors = validationResult(req);
 
-//   if (!errors.isEmpty()) {
-//     return res.status(422).json({
-//       error: errors.array()[0].msg,
-//     });
-//   }
+  if (!errors.isEmpty()) {
+    return res.status(422).json({
+      error: errors.array()[0].msg,
+    });
+  }
 
-//   try {
-//     const { username, password } = req.body;
+  try {
+    const { u_email, password } = req.body;
 
-//     const user = await User.findOne({
-//       where: { username },
-//     });
+    const userExists = await User.findOne({
+      where: { u_email },
+    });
 
-//     if (!user) {
-//       return res.status(400).json({
-//         error:
-//           "USERNAME does not exists! If you are new user consider login first",
-//       });
-//     }
+    if (!userExists) {
+      return res.status(400).json({
+        error:
+          "USERNAME does not exists! If you are new user consider Registering Yourself First.",
+      });
+    }
 
-//     const isMatch = await User.matchPass(
-//       req.body.password,
-//       user.dataValues.password
-//     );
+    const isMatch = await User.matchPass(
+      password,
+      userExists.dataValues.password
+    );
 
-//     if (!isMatch) {
-//       return res.status(401).json({
-//         error: "Username and Password do not match",
-//       });
-//     }
+    if (!isMatch) {
+      return res.status(401).json({
+        error: "Username and Password do not match",
+      });
+    }
 
-//     // CREATE TOKEN
-//     const token = jwt.sign(
-//       { id: user.id },
-//       process.env.SECRET
-//     );
+    const {
+      id,
+      name,
+      email,
+      avatar,
+      bio,
+      createdAt,
+    } = userExists.dataValues;
 
-//     // PUT TOKEN IN COOKIE
-//     res.cookie("token", token, {
-//       expire: new Date() + 9999,
-//     });
-
-//     // SEND RESPONSE TO FRONT END
-//     const { id, email, phoneNumber } = user;
-//     return res.json({
-//       token,
-//       user: { id, username, email, phoneNumber },
-//     });
-//   } catch (err) {
-//     return res.status(404).json({
-//       error: `Error: ${err}`,
-//     });
-//   }
-// };
+    return res.status(200).json({
+      id,
+      name,
+      email,
+      avatar,
+      bio,
+      createdAt,
+      token: generateToken(id),
+    });
+  } catch (err) {
+    return res.status(404).json({
+      error: `Error: ${err}`,
+    });
+  }
+};
 
 exports.userProfile = (req, res) => {
   try {
