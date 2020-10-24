@@ -6,6 +6,7 @@ const {
   signup,
   signin,
   userProfile,
+  updateUserProfile,
   deleteUser,
 } = require("../controllers/userController");
 
@@ -57,16 +58,14 @@ router.post(
   signin
 );
 
-// router.param("userId", getUserById);
-
 router.get("/:userId", isSignedIn, isAuth, userProfile);
 
-// router.patch(
-//   "/user/me/:userId",
-//   isSignedIn,
-//   isAuthenticated,
-//   control.updateUserProfile
-// );
+router.patch(
+  ":userId",
+  isSignedIn,
+  isAuth,
+  updateUserProfile
+);
 
 router.delete(
   "/deleteUser/:userId",

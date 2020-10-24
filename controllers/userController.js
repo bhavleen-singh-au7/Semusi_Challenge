@@ -76,13 +76,13 @@ exports.signin = async (req, res) => {
       });
     }
 
+    console.log(userExists.dataValues);
     const {
-      id,
-      name,
-      email,
-      avatar,
-      bio,
-      createdAt,
+      u_id: id,
+      u_name: name,
+      u_email: email,
+      u_avatar: avatar,
+      u_bio: bio,
     } = userExists.dataValues;
 
     return res.status(200).json({
@@ -91,8 +91,7 @@ exports.signin = async (req, res) => {
       email,
       avatar,
       bio,
-      createdAt,
-      token: generateToken(id),
+      token: await generateToken(id),
     });
   } catch (err) {
     return res.status(404).json({
@@ -114,37 +113,40 @@ exports.userProfile = (req, res) => {
   }
 };
 
-// exports.updateUserProfile = async (req, res) => {
-//   const user = req.profile;
-//   const updates = Object.keys(req.body);
+exports.updateUserProfile = async (req, res) => {
+  const user = req.profile;
 
-//   const allowedUpdates = ["username", "password"];
-//   const isvalidOperation = updates.every((update) =>
-//     allowedUpdates.includes(update)
-//   );
+  const updates = Object.keys(req.body);
 
-//   if (!isvalidOperation) {
-//     return res
-//       .status(400)
-//       .send({ error: "Invalid updates" });
-//   }
+  console.log(colors.bgWhite(updates));
 
-//   try {
-//     updates.forEach(
-//       (update) => (user[update] = req.body[update])
-//     );
-//     await user.save();
+  // const allowedUpdates = ["username", "password"];
+  // const isvalidOperation = updates.every((update) =>
+  //   allowedUpdates.includes(update)
+  // );
 
-//     return res.status(200).json({
-//       message: "User Data Updated",
-//       user: user,
-//     });
-//   } catch (err) {
-//     return res.status(400).json({
-//       error: `Error: ${err}`,
-//     });
-//   }
-// };
+  // if (!isvalidOperation) {
+  //   return res
+  //     .status(400)
+  //     .send({ error: "Invalid updates" });
+  // }
+
+  // try {
+  //   updates.forEach(
+  //     (update) => (user[update] = req.body[update])
+  //   );
+  //   await user.save();
+
+  //   return res.status(200).json({
+  //     message: "User Data Updated",
+  //     user: user,
+  //   });
+  // } catch (err) {
+  //   return res.status(400).json({
+  //     error: `Error: ${err}`,
+  //   });
+  // }
+};
 
 exports.deleteUser = async (req, res) => {
   try {
