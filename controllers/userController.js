@@ -15,13 +15,9 @@ exports.signup = async (req, res) => {
   try {
     const user = req.body;
 
-    console.log(user);
-
     const userExists = await User.findOne({
       where: { u_email: user.u_email },
     });
-
-    console.log(colors.green(userExists));
 
     if (userExists) {
       return res.status(400).json({
@@ -104,28 +100,18 @@ exports.signup = async (req, res) => {
 //   }
 // };
 
-exports.signout = (req, res) => {
-  res.clearCookie("token");
-  res.json({
-    message: "User Signout Successfully",
-  });
+exports.userProfile = (req, res) => {
+  try {
+    let user = req.profile;
+
+    user.password = undefined;
+    return res.status(200).json(user);
+  } catch (err) {
+    return res.status(400).json({
+      error: `ERROR: ${err}`,
+    });
+  }
 };
-
-// exports.userProfile = (req, res) => {
-//   try {
-//     let user = req.profile;
-
-//     user.password = undefined;
-//     user.token = undefined;
-//     user.createdAt = undefined;
-//     user.updatedAt = undefined;
-//     return res.status(200).json(user);
-//   } catch (err) {
-//     return res.status(400).json({
-//       error: `ERROR: ${err}`,
-//     });
-//   }
-// };
 
 // exports.updateUserProfile = async (req, res) => {
 //   const user = req.profile;
@@ -159,18 +145,18 @@ exports.signout = (req, res) => {
 //   }
 // };
 
-// exports.deleteUser = async (req, res) => {
-//   try {
-//     const user = req.profile;
-//     await User.destroy({ where: { id: user.id } });
-//     await sendCancellationEmail(user.email, user.username);
+exports.deleteUser = async (req, res) => {
+  try {
+    const u_id = req.profile.u_id;
 
-//     res.status(200).json({
-//       message: "USER no longer exists",
-//     });
-//   } catch (err) {
-//     return res.status(404).json({
-//       error: `Error: ${err}`,
-//     });
-//   }
-// };
+    await User.destroy({ where: { u_id } });
+
+    res.status(200).json({
+      message: "USER no longer exists",
+    });
+  } catch (err) {
+    return res.status(404).json({
+      error: `Error: ${err}`,
+    });
+  }
+};

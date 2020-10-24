@@ -4,14 +4,17 @@ const router = express.Router();
 
 const {
   signup,
-  signout,
+  userProfile,
+  deleteUser,
 } = require("../controllers/userController");
 
-// const {
-//   getUserById,
-//   isSignedIn,
-//   isAuthenticated,
-// } = require("../middlewares/userAuth");
+const {
+  isAuth,
+  isSignedIn,
+  getUserById,
+} = require("../middlewares/authMiddleware");
+
+router.param("userId", getUserById);
 
 router.post(
   "/",
@@ -55,14 +58,7 @@ router.post(
 
 // router.param("userId", getUserById);
 
-router.get("/signout", signout);
-
-// router.get(
-//   "/user/me/:userId",
-//   isSignedIn,
-//   isAuthenticated,
-//   control.userProfile
-// );
+router.get("/:userId", isSignedIn, isAuth, userProfile);
 
 // router.patch(
 //   "/user/me/:userId",
@@ -71,11 +67,11 @@ router.get("/signout", signout);
 //   control.updateUserProfile
 // );
 
-// router.delete(
-//   "/user/deleteUser/:userId",
-//   isSignedIn,
-//   isAuthenticated,
-//   control.deleteUser
-// );
+router.delete(
+  "/deleteUser/:userId",
+  isSignedIn,
+  isAuth,
+  deleteUser
+);
 
 module.exports = router;

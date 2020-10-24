@@ -1,17 +1,46 @@
-// import jwt from "jsonwebtoken";
-// import User from "../models/User.js";
+const User = require("../models/User");
+const expressJwt = require("express-jwt");
+const colors = require("colors");
 
-// const protect = async (req, res, next) => {
-//   let token;
+exports.getUserById = async (req, res, next, id) => {
+  try {
+    const user = await User.findOne({
+      where: { u_id: id },
+    });
 
-//   if (
-//     req.headers.authorization &&
-//     req.headers.authorization.startsWith("Bearer")
-//   ) {
-//     try{
-//       token = req.headers.authorization.split(" ")[1]
+    if (!user) {
+      return res.status(400).json({
+        error: "No user was found in DB",
+      });
+    }
 
-//       const decoded = jwt.verify()
-//     }
-//   }
-// };
+    req.profile = user;
+
+    next();
+  } catch (err) {
+    return res.status(400).json({
+      error: "Something Wrong In Auth Middleware",
+    });
+  }
+};
+
+exports.isSignedIn = expressJwt({
+  secret: process.env.SECRET,
+  algorithms: ["HS256"],
+  userProperty: "auth",
+});
+
+exports.isAuth = (req, res, next) => {
+  let checker =
+    req.profile &&
+    req.auth &&
+    req.profile.id == req.auth.id;
+
+  if (!checker) {
+    return res.status(403).json({
+      error: "ACCESS DENIED",
+    });
+  }
+
+  next();
+};
