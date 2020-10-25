@@ -31,10 +31,11 @@ exports.isSignedIn = expressJwt({
 });
 
 exports.isAuth = (req, res, next) => {
+
   let checker =
     req.profile &&
     req.auth &&
-    req.profile.id == req.auth.id;
+    req.profile.u_id == req.auth.id;
 
   if (!checker) {
     return res.status(403).json({

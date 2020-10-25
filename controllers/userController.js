@@ -61,22 +61,21 @@ exports.signin = async (req, res) => {
     if (!userExists) {
       return res.status(400).json({
         error:
-          "USERNAME does not exists! If you are new user consider Registering Yourself First.",
+          "EMAIL does not exists! If you are new user consider Registering Yourself First.",
       });
     }
 
     const isMatch = await User.matchPass(
       password,
-      userExists.dataValues.password
+      userExists.password
     );
 
     if (!isMatch) {
       return res.status(401).json({
-        error: "Username and Password do not match",
+        error: "Email and Password do not match",
       });
     }
 
-    console.log(userExists.dataValues);
     const {
       u_id: id,
       u_name: name,
@@ -118,34 +117,32 @@ exports.updateUserProfile = async (req, res) => {
 
   const updates = Object.keys(req.body);
 
-  console.log(colors.bgWhite(updates));
+  const allowedUpdates = ["u_name", "u_bio"];
+  const isvalidOperation = updates.every((update) =>
+    allowedUpdates.includes(update)
+  );
 
-  // const allowedUpdates = ["username", "password"];
-  // const isvalidOperation = updates.every((update) =>
-  //   allowedUpdates.includes(update)
-  // );
+  if (!isvalidOperation) {
+    return res
+      .status(400)
+      .send({ error: "Invalid updates" });
+  }
 
-  // if (!isvalidOperation) {
-  //   return res
-  //     .status(400)
-  //     .send({ error: "Invalid updates" });
-  // }
+  try {
+    updates.forEach(
+      (update) => (user[update] = req.body[update])
+    );
+    await user.save();
 
-  // try {
-  //   updates.forEach(
-  //     (update) => (user[update] = req.body[update])
-  //   );
-  //   await user.save();
-
-  //   return res.status(200).json({
-  //     message: "User Data Updated",
-  //     user: user,
-  //   });
-  // } catch (err) {
-  //   return res.status(400).json({
-  //     error: `Error: ${err}`,
-  //   });
-  // }
+    return res.status(200).json({
+      message: "User Data Updated",
+      user,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: `Error: ${err}`,
+    });
+  }
 };
 
 exports.deleteUser = async (req, res) => {

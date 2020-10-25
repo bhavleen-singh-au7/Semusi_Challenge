@@ -61,7 +61,7 @@ router.post(
 router.get("/:userId", isSignedIn, isAuth, userProfile);
 
 router.patch(
-  ":userId",
+  "/update/:userId",
   isSignedIn,
   isAuth,
   updateUserProfile
