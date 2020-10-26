@@ -1,0 +1,10 @@
+.myLink {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.myLink:hover {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
