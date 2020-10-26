@@ -21,7 +21,7 @@ const Landing = () => {
           type="button"
           className="btn-lg btn-outline-primary px-4 mx-3"
         >
-          <i class="fa fa-home"></i>{" "}
+          <i className="fas fa-user-plus"></i>{" "}
           <Link className="myLink" to="/signup">
             Sign Up
           </Link>
@@ -31,7 +31,7 @@ const Landing = () => {
           type="button"
           className="btn-lg btn-outline-primary px-4"
         >
-          <i class="fa fa-home"></i>{" "}
+          <i className="fas fa-sign-in-alt"></i>{" "}
           <Link className="myLink" to="/signin">
             Sign In
           </Link>
