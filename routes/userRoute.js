@@ -7,6 +7,8 @@ const {
   signin,
   userProfile,
   updateUserProfile,
+  // forgotPassword,
+  // resetPassword,
   deleteUser,
 } = require("../controllers/userController");
 
@@ -73,5 +75,11 @@ router.delete(
   isAuth,
   deleteUser
 );
+
+// Forgot Password
+// router.put("/forgot-password", forgotPassword);
+
+// Reset Password
+// router.put("/reset-password", resetPassword);
 
 module.exports = router;

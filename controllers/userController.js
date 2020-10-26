@@ -1,7 +1,9 @@
 const User = require("../models/User");
 const generateToken = require("../utils/generateToken");
 const { validationResult } = require("express-validator");
-const colors = require("colors");
+// const colors = require("colors");
+// const jwt = require("jsonwebtoken");
+// const emailSenderFunction = require("../utils/emailSenderFunction");
 
 exports.signup = async (req, res) => {
   const errors = validationResult(req);
@@ -160,3 +162,69 @@ exports.deleteUser = async (req, res) => {
     });
   }
 };
+
+// exports.forgotPassword = async (req, res) => {
+//   const { u_email } = req.body;
+
+//   const userExists = await User.findOne({
+//     where: { u_email },
+//   });
+
+//   if (!userExists) {
+//     return res.status(400).json({
+//       error:
+//         "User with that Email Address does not exists.",
+//     });
+//   }
+
+//   // Generate Token which will be sent to mail & valid only for 10mins
+//   const token = jwt.sign(
+//     { id: userExists.u_id },
+//     process.env.SECRET,
+//     { expiresIn: "10m" }
+//   );
+//   try {
+//     /* ****************
+//       Mail Format
+//       ******************* */
+//     const emailSubject =
+//       "Password Reset link for TPF Technologies.";
+
+//     const emailFormat = `
+//         <h1 style="text-align: center;color: RED;">
+//           TPF TECHNOLOGIES
+//         </h1><hr/>
+//         <h3>Please use the following link to reset your password.</h3>
+//         <p>${process.env.CLIENT_URL}/auth/password/reset/${token}</p><hr />
+//         <p>This email may contain sensetive information</p>
+//         <p>${process.env.CLIENT_URL}</p>
+//       `;
+
+//     // Email Configuration
+//     emailSenderFunction(u_email, emailSubject, emailFormat);
+
+//     return userExists.update(
+//       { resetPasswordLink: token },
+//       (err, success) => {
+//         if (err) {
+//           return res.status(400).json({
+//             error:
+//               "Database connection error on user password forgot requiest.",
+//           });
+//         } else {
+//           return res.status(200).json({
+//             message: `Email has been sent to ${email}. Follow the instruction to reset your password.`,
+//           });
+//         }
+//       }
+//     );
+//   } catch (err) {
+//     res.status(400).json({
+//       error: err.message,
+//     });
+//   }
+// };
+
+// exports.resetPassword = async (req, res) => {
+//   //
+// };
