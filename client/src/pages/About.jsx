@@ -1,7 +1,13 @@
-import React from "react";
+import React, { Fragment } from "react";
+import Navbar from "../components/Navbar";
 
 const About = () => {
-  return <div>About Page</div>;
+  return (
+    <Fragment>
+      <Navbar />
+      About Page
+    </Fragment>
+  );
 };
 
 export default About;

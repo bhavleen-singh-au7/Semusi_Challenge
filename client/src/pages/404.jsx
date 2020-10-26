@@ -1,7 +1,13 @@
-import React from "react";
+import React, { Fragment } from "react";
+import Navbar from "../components/Navbar";
 
 const Fallback = () => {
-  return <div>Fallback Page</div>;
+  return (
+    <Fragment>
+      <Navbar />
+      Fallback Page
+    </Fragment>
+  );
 };
 
 export default Fallback;

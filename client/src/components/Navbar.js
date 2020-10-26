@@ -1,14 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary py-4">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary py-4">
       <div className="container">
-        <a class="navbar-brand" href="#">
+        <Link className="navbar-brand" to="/">
           UserDB
-        </a>
+        </Link>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-toggle="collapse"
           data-target="#navbarSupportedContent"
@@ -16,32 +17,32 @@ const Navbar = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
         <div
-          class="collapse navbar-collapse"
+          className="collapse navbar-collapse"
           id="navbarSupportedContent"
         >
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active font-weight-bold px-3">
-              <a class="nav-link" href="#">
+          <ul className="navbar-nav ml-auto">
+            <li className="nav-item active font-weight-bold px-3">
+              <Link className="nav-link" to="/">
                 Home
-              </a>
+              </Link>
             </li>
-            <li class="nav-item active font-weight-bold px-3">
-              <a class="nav-link" href="#">
+            <li className="nav-item active font-weight-bold px-3">
+              <Link className="nav-link" to="/signup">
                 Sign Up
-              </a>
+              </Link>
             </li>
-            <li class="nav-item active font-weight-bold px-3">
-              <a class="nav-link" href="#">
+            <li className="nav-item active font-weight-bold px-3">
+              <Link className="nav-link" to="/signin">
                 Sign In
-              </a>
+              </Link>
             </li>
-            <li class="nav-item active font-weight-bold px-3">
-              <a class="nav-link" href="#">
+            <li className="nav-item active font-weight-bold px-3">
+              <Link className="nav-link" to="/about">
                 About
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

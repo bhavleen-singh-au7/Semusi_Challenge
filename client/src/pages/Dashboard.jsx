@@ -1,7 +1,13 @@
-import React from "react";
+import React, { Fragment } from "react";
+import Navbar from "../components/Navbar";
 
 const Dashboard = () => {
-  return <div>User Profile Page </div>;
+  return (
+    <Fragment>
+      <Navbar />
+      User Profile Page{" "}
+    </Fragment>
+  );
 };
 
 export default Dashboard;
