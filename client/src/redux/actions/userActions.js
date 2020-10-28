@@ -1,5 +1,4 @@
 import axios from "axios";
-import e from "express";
 import {
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
@@ -43,9 +42,9 @@ export const signin = (u_email, password) => async (
     dispatch({
       type: SIGNIN_FAIL,
       payload:
-        e.response && e.response.data.message
-          ? e.response.data.message
-          : e.message,
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message,
     });
   }
 };
@@ -81,13 +80,13 @@ export const signup = (u_name, u_email, password) => async (
     });
 
     localStorage.setItem("userInfo", JSON.stringify(data));
-  } catch (e) {
+  } catch (err) {
     dispatch({
       type: SIGNUP_FAIL,
       payload:
-        e.response && e.response.data.message
-          ? e.response.data.message
-          : e.message,
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message,
     });
   }
 };
@@ -121,13 +120,13 @@ export const getUserDetails = (id) => async (
       type: USER_DETAILS_SUCCESS,
       payload: data,
     });
-  } catch (e) {
+  } catch (err) {
     dispatch({
       type: USER_DETAILS_FAIL,
       payload:
-        e.response && e.response.data.message
-          ? e.response.data.message
-          : e.message,
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message,
     });
   }
 };
