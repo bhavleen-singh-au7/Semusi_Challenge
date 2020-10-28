@@ -11,20 +11,20 @@ import { ToastContainer, toast } from "react-toastify";
 import Loader from "../components/Loader";
 
 const Signup = ({ history, location }) => {
-  const dispatch = useDispatch();
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState(
     ""
   );
-  const [message, setMessage] = useState(null);
+  // const [message, setMessage] = useState(null);
 
-  const userRegister = useSelector(
-    (state) => state.userRegister
+  const dispatch = useDispatch();
+
+  const userSignup = useSelector(
+    (state) => state.userSignup
   );
-  const { loading, error, userInfo } = userRegister;
+  const { loading, error, userInfo } = userSignup;
 
   const redirect = location.search
     ? location.search.split("=")[1]
@@ -40,7 +40,7 @@ const Signup = ({ history, location }) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      setMessage("Passwords do not match");
+      toast.error("Passwords do not match");
     } else {
       dispatch(signup(name, email, password));
     }
@@ -144,7 +144,7 @@ const Signup = ({ history, location }) => {
     <Fragment>
       <Navbar />
       <ToastContainer />
-      {message && toast.error(message)}
+      {/* {message && toast.error(message)} */}
       {error && toast.error(error)}
       {loading && <Loader />}
       {SignupForm()}

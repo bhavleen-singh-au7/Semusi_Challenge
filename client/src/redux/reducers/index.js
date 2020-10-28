@@ -6,7 +6,7 @@ import {
 } from "./userReducers";
 
 export default combineReducers({
-  userDetailsReducer,
-  userSigninReducer,
-  userSignupReducer,
+  userDetails: userDetailsReducer,
+  userSignin: userSigninReducer,
+  userSignup: userSignupReducer,
 });

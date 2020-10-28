@@ -15,9 +15,9 @@ const About = () => {
         />
         <br />
 
-        <div className="w-50 bg-danger text-left">
+        <div className="w-50 bg-danger text-left text-light p-2">
           <p className="mt-4">
-            Signup/Signin with PERN Stack
+            <strong>Signup/Signin with PERN Stack</strong>
             <ul>
               <li>PostgreSQL</li>
               <li>ExpressJs</li>

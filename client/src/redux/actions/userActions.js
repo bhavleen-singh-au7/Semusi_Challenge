@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 import {
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
@@ -63,6 +64,8 @@ export const signup = (u_name, u_email, password) => async (
       },
     };
 
+    console.log("line 65");
+
     const { data } = await axios.post(
       "/api/users",
       { u_name, u_email, password },
@@ -85,8 +88,8 @@ export const signup = (u_name, u_email, password) => async (
       type: SIGNUP_FAIL,
       payload:
         err.response && err.response.data.message
-          ? err.response.data.message
-          : err.message,
+          ? toast.error(err.response.data.message)
+          : toast.error(err.message),
     });
   }
 };
