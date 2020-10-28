@@ -1,6 +1,7 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Fallback = () => {
   return (
@@ -21,7 +22,7 @@ const Fallback = () => {
           type="button"
           className="btn-lg btn-outline-primary px-4"
         >
-          <i class="fa fa-home"></i>{" "}
+          <i className="fa fa-home"></i>{" "}
           <Link className="myLink" to="/">
             Go Home
           </Link>

@@ -64,10 +64,8 @@ export const signup = (u_name, u_email, password) => async (
       },
     };
 
-    console.log("line 65");
-
     const { data } = await axios.post(
-      "/api/users",
+      "http://localhost:2020/api/users",
       { u_name, u_email, password },
       config
     );
@@ -88,8 +86,8 @@ export const signup = (u_name, u_email, password) => async (
       type: SIGNUP_FAIL,
       payload:
         err.response && err.response.data.message
-          ? toast.error(err.response.data.message)
-          : toast.error(err.message),
+          ? err.response.data.message
+          : err.message,
     });
   }
 };

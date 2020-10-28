@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../redux/actions/userActions";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import Loader from "../components/Loader";
 
 const Signup = ({ history, location }) => {
@@ -143,7 +143,6 @@ const Signup = ({ history, location }) => {
   return (
     <Fragment>
       <Navbar />
-      <ToastContainer />
       {/* {message && toast.error(message)} */}
       {error && toast.error(error)}
       {loading && <Loader />}
